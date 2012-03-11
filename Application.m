@@ -101,4 +101,25 @@
     return [NSString stringWithFormat:@"%@", buildValue];
 }
 
+
++ (void) registerDefaultValues
+{
+    id absoluteFilename = [Application fileInBundle:@"Defaults.plist"];;
+    NSDictionary *defaultValues = [NSDictionary dictionaryWithContentsOfFile:absoluteFilename];
+    
+    NSAssert(defaultValues != nil, @"Error: Missing file from bundle 'Defaults.plist'");
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults registerDefaults:defaultValues];
+    BOOL saved = [userDefaults synchronize];
+    
+    if (saved == NO)
+    {
+        NSLog(@"Error: Unable to synchronize the user default settings");
+        exit(-1);
+    }
+}
+
+
+
 @end

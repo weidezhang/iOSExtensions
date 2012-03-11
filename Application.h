@@ -24,4 +24,6 @@
 + (NSString*) version;
 + (NSString*) versionClean;
 
++ (void) registerDefaultValues;
+
 @end
